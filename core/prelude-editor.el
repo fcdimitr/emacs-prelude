@@ -137,8 +137,8 @@
 (recentf-mode +1)
 
 ;; use shift + arrow keys to switch between visible buffers
-(require 'windmove)
-(windmove-default-keybindings)
+;; (require 'windmove)
+;; (windmove-default-keybindings)
 
 ;; automatically save buffers associated with files on buffer switch
 ;; and on windows switch
@@ -419,6 +419,12 @@ and file 'filename' will be opened and cursor set on line 'linenumber'"
 (require 'editorconfig)
 (editorconfig-mode 1)
 (diminish 'editorconfig-mode)
+
+(prelude-require-package 'multiple-cursors)
+;; multiple-cursors
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
 (provide 'prelude-editor)
 

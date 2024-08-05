@@ -51,10 +51,10 @@ Windows external keyboard from time to time."
         (setq mac-option-modifier 'super)
         (message "Command is now bound to META and Option is bound to SUPER."))
     (setq mac-command-modifier 'super)
-    (setq mac-option-modifier 'meta)
+p    (setq mac-option-modifier 'meta)
     (message "Command is now bound to SUPER and Option is bound to META.")))
 
-(define-key prelude-mode-map (kbd "C-c w") 'prelude-swap-meta-and-super)
+;; (define-key prelude-mode-map (kbd "C-c w") 'prelude-swap-meta-and-super)
 
 ;; There's no point in hiding the menu bar on macOS, so let's not do it
 (menu-bar-mode +1)

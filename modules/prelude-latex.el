@@ -85,6 +85,23 @@
 (add-hook 'LaTeX-mode-hook (lambda ()
                              (run-hooks 'prelude-latex-mode-hook)))
 
+(use-package auctex-latexmk
+ :ensure t)
+(auctex-latexmk-setup)
+
+(setq auctex-latexmk-inherit-TeX-PDF-mode t)
+
+(defun my/latex-buffer-setup ()
+  (TeX-source-correlate-mode)
+  (TeX-PDF-mode))
+(add-hook 'LaTeX-mode-hook 'my/latex-buffer-setup)
+
+(setq TeX-source-correlate-method 'synctex
+      TeX-view-program-list   ;; Use Skim, it's awesome
+      '(("Skim" "/Applications/Skim.app/Contents/SharedSupport/displayline -g -b %n %o %b"))
+      TeX-view-program-selection '((output-pdf "Skim")))
+
+
 (provide 'prelude-latex)
 
 ;;; prelude-latex.el ends here

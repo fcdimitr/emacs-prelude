@@ -42,6 +42,7 @@
 
 ;; the blinking cursor is nothing, but an annoyance
 (blink-cursor-mode -1)
+(setq-default cursor-type 'bar)
 
 ;; disable the annoying bell ring
 (setq ring-bell-function 'ignore)
