@@ -40,6 +40,8 @@
 (when prelude-minimalistic-ui
   (menu-bar-mode -1))
 
+(scroll-bar-mode -1)
+
 ;; the blinking cursor is nothing, but an annoyance
 (blink-cursor-mode -1)
 (setq-default cursor-type 'bar)

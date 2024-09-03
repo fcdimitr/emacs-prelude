@@ -3,15 +3,26 @@
 
 (setq mc/cmds-to-run-for-all
       '(
-        electric-newline-and-maybe-indent
         LaTeX-babel-insert-hyphen
+        LaTeX-insert-item
         LaTeX-insert-left-brace
         TeX-insert-backslash
         crux-move-beginning-of-line
         easy-kill
+        fill-paragraph
+        ignore-preserving-kill-region
+        matlab-electric-comment
+        org-end-of-line
+        org-self-insert-command
+        org-yank
+        sp-backward-delete-char
+        sp-backward-kill-word
+        sp-rewrap-sexp
         ))
 
 (setq mc/cmds-to-run-once
       '(
+        ace-window
+        electric-newline-and-maybe-indent
         lsp-ui-doc--handle-mouse-movement
         ))

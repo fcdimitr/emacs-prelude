@@ -1,0 +1,26 @@
+# -*- mode: snippet -*-
+# name: new_script
+# key: dscr
+# --
+% ${1:`(file-name-nondirectory (buffer-file-name))`}
+%
+% $2
+%
+
+clear all; close all
+
+%% PARAMETERS & PATH SETTINGS
+
+$0
+
+%% (BEGIN)
+
+fprintf('\\n ... begin %s \\n\\n', mfilename);
+
+%% (END)
+
+fprintf('\\n ... end %s \\n\\n', mfilename);
+
+
+% Author: Dimitris F. <dimitrios.floros@duke.edu>
+% Date: `(format-time-string "%Y-%m-%d")`

@@ -1,0 +1,6 @@
+[submodule "vendor/copilot.el"]
+	path = vendor/copilot.el
+	url = https://github.com/zerolfx/copilot.el
+[submodule "vendor/md-roam"]
+	path = vendor/md-roam
+	url = https://github.com/nobiot/md-roam.git

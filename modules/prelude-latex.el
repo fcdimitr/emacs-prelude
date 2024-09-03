@@ -57,7 +57,7 @@
 (setq-default TeX-master nil)
 
 ;; use pdflatex
-(setq TeX-PDF-mode t)
+;; (setq TeX-PDF-mode t)
 
 ;; sensible defaults for macOS, other OSes should be covered out-of-the-box
 (when (eq system-type 'darwin)
@@ -101,6 +101,13 @@
       '(("Skim" "/Applications/Skim.app/Contents/SharedSupport/displayline -g -b %n %o %b"))
       TeX-view-program-selection '((output-pdf "Skim")))
 
+
+(require 'tex)
+(require 'reftex)
+
+(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+
+(add-to-list 'auto-mode-alist '("\\.tex\\'" . LaTeX-mode))
 
 (provide 'prelude-latex)
 
