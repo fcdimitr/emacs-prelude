@@ -36,7 +36,7 @@
             (unless (server-running-p)
               (server-start))))
 
-(setq prelude-clean-whitespace-on-save 't)
+(setq prelude-clean-whitespace-on-save 'nil)
 
 ;; MATLAB
 (use-package matlab
@@ -319,6 +319,20 @@ cleared, make sure the overlay doesn't come back too soon."
 (setq org-pomodoro-long-break-sound-args "-v 0.15")
 (setq org-pomodoro-ticking-sound-args "-v 0.15")
 
+(defun org-pomodoro-overtime-osxfix ()
+  "Is invoked when the time for a pomodoro runs out.
+Notify the user that the pomodoro should be finished by calling `org-pomodoro'"
+  (org-pomodoro-maybe-play-sound :overtime)
+  (org-pomodoro-notify "Pomodoro completed. Now on overtime!" "Start break by calling `org-pomodoro'")
+  (org-pomodoro-start :overtime)
+  (org-pomodoro-update-mode-line)
+  (run-hooks 'org-pomodoro-overtime-hook))
+
+(advice-add 'org-pomodoro-overtime :override #'org-pomodoro-overtime-osxfix)
+
+(setq org-pomodoro-manual-break t)
+
+
 (defun browse-file-directory ()
   "Open the current file's directory however the OS would."
   (interactive)
@@ -339,6 +353,19 @@ cleared, make sure the overlay doesn't come back too soon."
                ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 
 (add-to-list 'org-latex-classes
+             '("extarticle"
+               "\\documentclass{extarticle}
+[DEFAULT-PACKAGES]
+[PACKAGES]
+[EXTRA]"
+               ("\\section{%s}" . "\\section*{%s}")
+               ("\\subsection{%s}" . "\\subsection*{%s}")
+               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+               ("\\paragraph{%s}" . "\\paragraph*{%s}")
+               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+
+
+(add-to-list 'org-latex-classes
              '("draftarticle"
                "\\documentclass{draft-class/draftarticle}
 [NO-DEFAULT-PACKAGES]
@@ -349,5 +376,12 @@ cleared, make sure the overlay doesn't come back too soon."
                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                ("\\paragraph{%s}" . "\\paragraph*{%s}")
                ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+
+(add-to-list 'org-latex-classes
+             '("cbeamer"
+               "\\documentclass[presentation]{custom-beamer/cbeamer}"
+               ("\\section{%s}" . "\\section*{%s}")
+               ("\\subsection{%s}" . "\\subsection*{%s}")
+               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))
 
 (setq org-latex-src-block-backend 'listings)

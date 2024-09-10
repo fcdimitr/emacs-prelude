@@ -58,6 +58,52 @@
 
 (add-hook 'org-mode-hook (lambda () (run-hooks 'prelude-org-mode-hook)))
 
+;;; the rest are from
+;;; https://wiki.softwareheritage.org/wiki/Presentation_with_org_beamer
+
+(require 'ox-beamer)
+
+(defun inria-presentation/template-headers-at-pt ()
+  "Inject default template inside the current buffer.
+   No intelligence whatsoever."
+  (interactive)
+  (with-current-buffer (buffer-name)
+    (insert
+     "# org export options
+   #+LANGUAGE:  en
+   #+OPTIONS:   H:2 num:t toc:t \\n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+   #+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+   #+EXPORT_SELECT_TAGS: export
+   #+EXPORT_EXCLUDE_TAGS: noexport
+   #+LINK_UP:
+   #+LINK_HOME:
+
+   # activate org-beamer-mode minor mode automatically
+   #+STARTUP: beamer
+   #+LaTeX_CLASS: beamer
+   #+LaTeX_CLASS_OPTIONS: [presentation,xcolor=table]
+
+   #+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)
+
+   # have the theme desired
+   #+latex_header: \\mode<presentation>{\\usetheme{irill} \\beamertemplatenavigationsymbolsempty \\setbeamertemplate{navigation symbols}{} \\setbeamertemplate{headline}{} }
+
+   # some color
+   #+latex_header: \\rowcolors[]{1}{blue!10}{blue!05}
+
+   # to have a toc for each section
+   #+latex_header: \\AtBeginSection[] {\\begin{frame}<beamer> \\frametitle{Outline} \\tableofcontents[currentsection]\\end{frame} }
+
+   # set the paths for images
+   #+latex_header: \\graphicspath{{pics/}{../images/}{../../images/}{../pics/}{../../pics/}{../figures/}{../../figures/}{../logos/}{../../logos/}}
+
+   # some default information I did not find how to set this in org-mode
+   #+latex_header: \\institute[Irill/INRIA/UPD]{Présentation en ComDir\\\\ \\url{roberto@diiacosmo.org}\\\\ \\includegraphics[height=2cm]{SWH_logo_4-02b}}
+
+   # to add the picblock macro
+   #+latex_header: \\usepackage{extblocks}
+   #+latex_header: \\usepackage{pgfpages}\n")))
+
 (provide 'prelude-org)
 
 ;;; prelude-org.el ends here

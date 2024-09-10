@@ -11,6 +11,7 @@
         easy-kill
         fill-paragraph
         ignore-preserving-kill-region
+        markdown-outdent-or-delete
         matlab-electric-comment
         org-end-of-line
         org-self-insert-command
