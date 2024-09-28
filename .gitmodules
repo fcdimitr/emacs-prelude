@@ -4,3 +4,6 @@
 [submodule "vendor/md-roam"]
 	path = vendor/md-roam
 	url = https://github.com/nobiot/md-roam.git
+[submodule "vendor/ox-ipynb"]
+	path = vendor/ox-ipynb
+	url = https://github.com/jkitchin/ox-ipynb.git

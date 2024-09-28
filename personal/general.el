@@ -260,6 +260,7 @@ cleared, make sure the overlay doesn't come back too soon."
 
   (setq deft-extensions '("txt" "tex" "org" "md"))
   (setq deft-directory  "~/Workspace/zettelkasten")
+  (setq deft-recursive-ignore-dir-regexp "\\(?:^\\|/\\)\\(?:\\.\\.?\\|content[^/]*\\)\\(?:/\\|$\\)")
   )
 
 (use-package org-ref
@@ -364,6 +365,18 @@ Notify the user that the pomodoro should be finished by calling `org-pomodoro'"
                ("\\paragraph{%s}" . "\\paragraph*{%s}")
                ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 
+(add-to-list 'org-latex-classes
+             '("memo"
+               "\\documentclass{memo-class/memo}
+[NO-DEFAULT-PACKAGES]
+[PACKAGES]
+[EXTRA]"
+               ("\\section{%s}" . "\\section*{%s}")
+               ("\\subsection{%s}" . "\\subsection*{%s}")
+               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+               ("\\paragraph{%s}" . "\\paragraph*{%s}")
+               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+
 
 (add-to-list 'org-latex-classes
              '("draftarticle"
@@ -385,3 +398,33 @@ Notify the user that the pomodoro should be finished by calling `org-pomodoro'"
                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")))
 
 (setq org-latex-src-block-backend 'listings)
+
+(defun count-characters-in-section ()
+  "Count characters and words in each level 1 section of the Org-mode buffer, excluding the headline."
+  (interactive)
+  (org-map-entries
+   (lambda ()
+     (let* ((start (progn (forward-line 6) (point))) ; Move past the headline
+            (end (save-excursion (org-end-of-subtree t)))
+            (char-count (how-many "\\S-" start end)) ; Count non-whitespace characters
+            (char-count-wsp (- end start)) ; Count total characters including whitespace
+            (word-count (count-words start end))) ; Count words
+       (org-set-property "charcount" (number-to-string char-count))
+       (org-set-property "charcountwsp" (number-to-string char-count-wsp))
+       (org-set-property "wordcount" (number-to-string word-count))))
+   "LEVEL=1")) ; Restrict to level 1 headings
+
+(use-package ox-ipynb
+  :load-path (lambda () (expand-file-name "ox-ipynb" prelude-vendor-dir))
+  :config
+  (require 'ox-ipynb)
+  )
+
+(use-package ob-ipython
+  :ensure t
+  :config
+  (require 'ob-ipython))
+
+(setq org-export-allow-bind-keywords t)
+(setenv "PYDEVD_DISABLE_FILE_VALIDATION" "1")
+;; (setq debug-on-error t)

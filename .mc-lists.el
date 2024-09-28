@@ -8,13 +8,19 @@
         LaTeX-insert-left-brace
         TeX-insert-backslash
         crux-move-beginning-of-line
+        crux-smart-open-line
+        delete-horizontal-space
         easy-kill
         fill-paragraph
         ignore-preserving-kill-region
         markdown-outdent-or-delete
         matlab-electric-comment
+        org-beginning-of-line
         org-end-of-line
+        org-metaleft
+        org-metaright
         org-self-insert-command
+        org-shiftmetaleft
         org-yank
         sp-backward-delete-char
         sp-backward-kill-word
@@ -25,5 +31,7 @@
       '(
         ace-window
         electric-newline-and-maybe-indent
+        find-file
         lsp-ui-doc--handle-mouse-movement
+        mouse-set-region
         ))
