@@ -428,3 +428,8 @@ Notify the user that the pomodoro should be finished by calling `org-pomodoro'"
 (setq org-export-allow-bind-keywords t)
 (setenv "PYDEVD_DISABLE_FILE_VALIDATION" "1")
 ;; (setq debug-on-error t)
+
+(use-package org-download
+  :ensure t
+  :config
+  (require 'org-download))
