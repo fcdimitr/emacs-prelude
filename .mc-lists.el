@@ -14,9 +14,12 @@
         fill-paragraph
         ignore-preserving-kill-region
         markdown-outdent-or-delete
+        matlab-electric-block-comment
         matlab-electric-comment
         org-beginning-of-line
         org-end-of-line
+        org-export-dispatch
+        org-kill-line
         org-metaleft
         org-metaright
         org-self-insert-command
@@ -30,8 +33,15 @@
 (setq mc/cmds-to-run-once
       '(
         ace-window
+        consult-buffer
         electric-newline-and-maybe-indent
         find-file
+        keyboard-escape-quit
+        kill-region
         lsp-ui-doc--handle-mouse-movement
+        matlab-shell-delete-backwards-no-prompt
+        matlab-shell-previous-matching-input-from-input
+        matlab-shell-save-and-go
         mouse-set-region
+        org-cycle
         ))

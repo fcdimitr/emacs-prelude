@@ -188,7 +188,7 @@ cleared, make sure the overlay doesn't come back too soon."
 
 (use-package org-roam-ui
   :ensure t
-  :after org-roam
+  :after md-roam
   ;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
   ;;         a hookable mode anymore, you're advised to pick something yourself
   ;;         if you don't care about startup time, use
@@ -204,9 +204,10 @@ cleared, make sure the overlay doesn't come back too soon."
   :after org-roam
   :config
   (setq org-roam-file-extensions '("org" "md")) ; enable Org-roam for a markdown extension
+  (require 'md-roam)
   (md-roam-mode 1) ; md-roam-mode must be active before org-roam-db-sync
   (setq md-roam-file-extension "md") ; default "md". Specify an extension such as "markdown"
-  (org-roam-db-autosync-mode) ; autosync-mode triggers db-sync. md-roam-mode must be already active
+  (org-roam-db-autosync-mode 1) ; autosync-mode triggers db-sync. md-roam-mode must be already active
   (add-to-list 'org-roam-capture-templates
                '("m" "Markdown" plain "" :target
                  (file+head "%<%Y-%m-%dT%H%M%S>-${slug}.md"
@@ -425,6 +426,7 @@ Notify the user that the pomodoro should be finished by calling `org-pomodoro'"
   :config
   (require 'ob-ipython))
 
+
 (setq org-export-allow-bind-keywords t)
 (setenv "PYDEVD_DISABLE_FILE_VALIDATION" "1")
 ;; (setq debug-on-error t)
@@ -433,3 +435,29 @@ Notify the user that the pomodoro should be finished by calling `org-pomodoro'"
   :ensure t
   :config
   (require 'org-download))
+
+
+(setq julia-indent-offset 2)
+(setq matlab-indent-level 2)
+(setq python-indent-offset 2)
+
+(use-package conda
+  :ensure t
+  :config
+  (setq conda-anaconda-home "/opt/homebrew/anaconda3/")
+  (conda-env-initialize-interactive-shells)
+  (conda-env-initialize-eshell))
+
+(use-package ein
+  :ensure t
+  :config
+  (require 'ein)
+  (require 'ein-notebook))
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((python . t)))
+
+(setq org-edit-src-content-indentation 2) ; Use 2 spaces for indentation
+(setq org-babel-python-indent-offset 2)
+(setq-default python-indent-offset 2) ; Align Python mode to 2 spaces
